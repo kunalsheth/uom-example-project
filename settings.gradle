@@ -1,0 +1,4 @@
+rootProject.name = 'uom-example'
+include 'uoms'
+include 'uoms:jvm'
+include 'myapp'
