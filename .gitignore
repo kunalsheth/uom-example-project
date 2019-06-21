@@ -110,3 +110,6 @@ docs
 .DS_Store
 benchmark/*/*
 local.properties
+
+!uoms/build/uom/UnitsOfMeasure.kt
+!uoms/build/uom/UomMath.kt
