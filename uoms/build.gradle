@@ -1,8 +1,24 @@
-apply plugin: 'kotlin-platform-common'
+apply plugin: 'org.jetbrains.kotlin.multiplatform'
 apply plugin: 'info.kunalsheth.units.gradle'
 
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-common:$kotlin_version"
-}
+repositories.mavenCentral()
 
+kotlin {
+    jvm()
+    js()
+    linuxX64()
+
+    sourceSets {
+        commonMain {
+            kotlin.srcDir(generateUnitsOfMeasure.generatedSrcDir)
+            dependencies { implementation kotlin('stdlib-common') }
+        }
+        jvm { dependencies { implementation kotlin('stdlib-jdk8') } }
+        js { dependencies { implementation kotlin('stdlib-js') } }
+        all { languageSettings.enableLanguageFeature('InlineClasses') }
+    }
+    targets.all {
+        compilations.all { compileKotlinTask.dependsOn(generateUnitsOfMeasure) }
+    }
+}
 apply from: 'units-of-measure.gradle'
