@@ -10,6 +10,9 @@ operator fun <Q : Quan<Q>> Q.div(that: Q): Double = this.siValue / that.siValue
 infix fun <Q : Quan<Q>> Q.minMag(that: Q) = if (this.abs < that.abs) this else that
 infix fun <Q : Quan<Q>> Q.maxMag(that: Q) = if (this.abs > that.abs) this else that
 
+inline infix fun <Q : Quan<Q>> Q.`±`(radius: Q) = this.plusOrMinus(radius)
+inline fun <Q : Quan<Q>> `±`(radius: Q) = radius.new(0.0).plusOrMinus(radius)
+
 inline infix fun <Q : Number> Q.`±`(radius: Q): ClosedFloatingPointRange<Double> {
     val center = toDouble()
     val range = radius.toDouble()
