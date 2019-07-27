@@ -4,17 +4,30 @@ apply plugin: 'info.kunalsheth.units.gradle'
 repositories.mavenCentral()
 
 kotlin {
+    // select the platform(s) you want to use
     jvm()
     js()
     linuxX64()
+    macosX64()
 
     sourceSets {
+        // I've never needed to run tests in the :uoms module
+        // but just in case you do, this config will support it
+        
         commonMain {
             kotlin.srcDir(generateUnitsOfMeasure.generatedSrcDir)
             dependencies { implementation kotlin('stdlib-common') }
         }
-        jvm { dependencies { implementation kotlin('stdlib-jdk8') } }
-        js { dependencies { implementation kotlin('stdlib-js') } }
+        commonTest {
+            dependencies {
+                implementation kotlin('test-common')
+                implementation kotlin('test-annotations-common')
+            }
+        }
+        jvmMain { dependencies { implementation kotlin('stdlib-jdk8') } }
+        jvmTest { dependencies { implementation kotlin('test-junit') } }
+        jsMain { dependencies { implementation kotlin('stdlib-js') } }
+        jsTest { dependencies { implementation kotlin('test-js') } }
         all { languageSettings.enableLanguageFeature('InlineClasses') }
     }
     targets.all {

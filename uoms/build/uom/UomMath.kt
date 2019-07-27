@@ -1,8 +1,23 @@
+/*
+ * Copyright 2019 Kunal Sheth
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
+ * files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy,
+ * modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+ * WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
 package info.kunalsheth.units.math
 
 import info.kunalsheth.units.generated.*
 import kotlin.math.*
-import kotlin.js.JsName
 
 fun sin(x: `∠`) = Dimensionless(kotlin.math.sin(x.siValue))
 fun cos(x: `∠`) = Dimensionless(kotlin.math.cos(x.siValue))
@@ -38,8 +53,8 @@ inline fun <Q : Quan<Q>> Q.roundToInt(q: UomConverter<Q>) = q(q(this).roundToInt
 inline fun <Q : Quan<Q>> Q.roundToLong(q: UomConverter<Q>) = q(q(this).roundToLong().toDouble())
 
 inline infix fun <Q : Quan<Q>> Q.plusOrMinus(radius: Q) = (this - radius)..(this + radius)
-@JsName("pm1") inline infix fun <Q : Quan<Q>> Q.`±`(radius: Q) = this.plusOrMinus(radius)
-@JsName("pm2") inline fun <Q : Quan<Q>> `±`(radius: Q) = radius.new(0.0).plusOrMinus(radius)
+//@JsName("pm1") inline infix fun <Q : Quan<Q>> Q.`±`(radius: Q) = this.plusOrMinus(radius)    // too many compiler bugs here
+//@JsName("pm2") inline fun <Q : Quan<Q>> `±`(radius: Q) = radius.new(0.0).plusOrMinus(radius) // too many compiler bugs here
 
 inline operator fun <Q : Quan<Q>> Q.rangeTo(that: Q) = object : ClosedRange<Q> {
     override val start = min(that)
@@ -47,6 +62,7 @@ inline operator fun <Q : Quan<Q>> Q.rangeTo(that: Q) = object : ClosedRange<Q> {
 }
 
 inline fun <Q : Quan<Q>> avg(a: Q, b: Q) = (a + b) / 2
+inline fun <Q : Quan<Q>> avg(a: Q, b: Q, c: Q) = (a + b + c) / 3
 inline fun <Q : Quan<Q>> avg(first: Q, vararg x: Q) = first.new(
         (first.siValue + x.sumByDouble(Quan<Q>::siValue)) /
                 (1 + x.size)
