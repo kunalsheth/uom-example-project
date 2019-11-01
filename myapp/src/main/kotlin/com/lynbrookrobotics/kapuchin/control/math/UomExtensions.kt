@@ -5,6 +5,9 @@ import info.kunalsheth.units.math.*
 import kotlin.math.pow
 import kotlin.math.round
 
+typealias `*` = times
+typealias `÷` = div
+
 operator fun <Q : Quan<Q>> Q.div(that: Q): Double = this.siValue / that.siValue
 
 infix fun <Q : Quan<Q>> Q.minMag(that: Q) = if (this.abs < that.abs) this else that

@@ -1,7 +1,7 @@
 package com.lynbrookrobotics.kapuchin.control.math
 
-import com.lynbrookrobotics.kapuchin.control.data.*
-import info.kunalsheth.units.generated.*
+import com.lynbrookrobotics.kapuchin.control.data.delay
+import info.kunalsheth.units.generated.Quan
 import kotlin.math.absoluteValue
 import kotlin.math.sqrt
 
@@ -16,23 +16,23 @@ import kotlin.math.sqrt
  * @param Q type of input
  * @param Q2 type of input squared
  *
- * @param times UOM proof (just pass in `::times`)
+ * @param _ UOM proof (just pass in `::times`)
  * @param init first value
  */
 fun <Q : Quan<Q>, Q2 : Quan<Q2>> infiniteStdev(
-        times: (Q, Q) -> Q2,
+        `_`: Q.(`*`, Q) -> Q2,
         init: Q
 ): (Q) -> Q {
     var sum = init
-    var sqSum = times(init, init)
+    var sqSum = init.`_`(`*`, init)
     var n = 1
 
     return fun(value: Q): Q {
         sum += value
-        sqSum += times(value, value)
+        sqSum += value.`_`(`*`, value)
         n++
 
-        return stdev(times, n, sum, sqSum)
+        return stdev(`_`, n, sum, sqSum)
     }
 }
 
@@ -47,40 +47,40 @@ fun <Q : Quan<Q>, Q2 : Quan<Q2>> infiniteStdev(
  * @param Q type of input
  * @param Q2 type of input squared
  *
- * @param times UOM proof (just pass in `::times`)
+ * @param _ UOM proof (just pass in `::times`)
  * @param init first value
  * @param falloff number of values to look back when calculating
  */
 fun <Q : Quan<Q>, Q2 : Quan<Q2>> finiteStdev(
-        times: (Q, Q) -> Q2,
+        `_`: Q.(`*`, Q) -> Q2,
         init: Q,
         falloff: Int
 ): (Q) -> Q {
     val delay = delay<Q>(falloff).also { it(init) }
 
     var sum = init
-    var sqSum = times(init, init)
+    var sqSum = init.`_`(`*`, init)
     var n = 1
 
     return fun(value: Q): Q {
         sum += value
-        sqSum += times(value, value)
+        sqSum += value.`_`(`*`, value)
 
         val delayed = delay(value)
         if (delayed == null) n++
         else {
             sum -= delayed
-            sqSum -= times(delayed, delayed)
+            sqSum -= delayed.`_`(`*`, delayed)
         }
 
-        return stdev(times, n, sum, sqSum)
+        return stdev(`_`, n, sum, sqSum)
     }
 }
 
-private fun <Q : Quan<Q>, Q2 : Quan<Q2>> stdev(times: (Q, Q) -> Q2, n: Int, sum: Q, sqSum: Q2): Q {
+private fun <Q : Quan<Q>, Q2 : Quan<Q2>> stdev(`_`: Q.(`*`, Q) -> Q2, n: Int, sum: Q, sqSum: Q2): Q {
     val xBar = sum / n
-    val xBarSum2 = times(xBar, sum) * 2 // 2̄xΣxᵢ
-    val nxBarSq = times(xBar, xBar) * n // n̄x²
+    val xBarSum2 = xBar.`_`(`*`, sum) * 2 // 2̄xΣxᵢ
+    val nxBarSq = xBar.`_`(`*`, xBar) * n // n̄x²
 
     val sigmaSq = (sqSum - xBarSum2 + nxBarSq) / (n - 1)
     val sigma = sum.new(sqrt(sigmaSq.siValue.absoluteValue))  // `.absoluteValue` because of floating point error
