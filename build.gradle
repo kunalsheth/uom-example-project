@@ -12,6 +12,9 @@ buildscript {
     }
 }
 
+apply plugin: 'announce'
+apply plugin: 'build-announcements'
+
 allprojects {
     group 'info.kunalsheth.uomexample'
     version '1.0.0'

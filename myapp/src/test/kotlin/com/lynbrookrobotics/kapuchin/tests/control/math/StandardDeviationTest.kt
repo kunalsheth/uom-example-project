@@ -1,9 +1,14 @@
 package com.lynbrookrobotics.kapuchin.tests.control.math
 
-import com.lynbrookrobotics.kapuchin.control.math.*
-import com.lynbrookrobotics.kapuchin.tests.*
-import info.kunalsheth.units.generated.*
-import info.kunalsheth.units.math.*
+import com.lynbrookrobotics.kapuchin.control.math.`±`
+import com.lynbrookrobotics.kapuchin.control.math.finiteStdev
+import com.lynbrookrobotics.kapuchin.control.math.infiniteStdev
+import com.lynbrookrobotics.kapuchin.tests.`is greater than?`
+import com.lynbrookrobotics.kapuchin.tests.`is within?`
+import com.lynbrookrobotics.kapuchin.tests.anyDouble
+import com.lynbrookrobotics.kapuchin.tests.anyInt
+import info.kunalsheth.units.generated.Foot
+import info.kunalsheth.units.generated.p
 import kotlin.test.Test
 
 class StandardDeviationTest {

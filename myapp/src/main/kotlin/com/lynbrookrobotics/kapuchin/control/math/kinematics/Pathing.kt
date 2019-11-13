@@ -1,9 +1,12 @@
 package com.lynbrookrobotics.kapuchin.control.math.kinematics
 
-import com.lynbrookrobotics.kapuchin.control.data.*
-import com.lynbrookrobotics.kapuchin.control.math.*
+import com.lynbrookrobotics.kapuchin.control.data.TimeStamped
+import com.lynbrookrobotics.kapuchin.control.data.UomVector
+import com.lynbrookrobotics.kapuchin.control.data.stampWith
+import com.lynbrookrobotics.kapuchin.control.math.distance
 import info.kunalsheth.units.generated.*
-import info.kunalsheth.units.math.*
+import info.kunalsheth.units.math.abs
+import info.kunalsheth.units.math.asin
 import kotlin.math.ceil
 
 typealias Waypt = UomVector<Length>

@@ -1,7 +1,7 @@
 package com.lynbrookrobotics.kapuchin.control.data
 
-import com.lynbrookrobotics.kapuchin.control.math.*
-import info.kunalsheth.units.generated.*
+import com.lynbrookrobotics.kapuchin.control.math.div
+import info.kunalsheth.units.generated.Quan
 
 /**
  * Represents a control gain

@@ -1,6 +1,9 @@
 package com.lynbrookrobotics.kapuchin.control.math.kinematics
 
-import info.kunalsheth.units.generated.*
+import info.kunalsheth.units.generated.Acceleration
+import info.kunalsheth.units.generated.FootPerSecond
+import info.kunalsheth.units.generated.Length
+import info.kunalsheth.units.generated.Velocity
 
 fun trapezoidalMotionProfile(
         deceleration: Acceleration,

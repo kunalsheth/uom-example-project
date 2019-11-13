@@ -16,23 +16,23 @@ import kotlin.math.sqrt
  * @param Q type of input
  * @param Q2 type of input squared
  *
- * @param _ UOM proof (just pass in `::times`)
+ * @param p UOM proof (just pass in `::p`)
  * @param init first value
  */
 fun <Q : Quan<Q>, Q2 : Quan<Q2>> infiniteStdev(
-        `_`: Q.(`*`, Q) -> Q2,
+        p: (Q, `*`, Q) -> Q2,
         init: Q
 ): (Q) -> Q {
     var sum = init
-    var sqSum = init.`_`(`*`, init)
+    var sqSum = p(init, `*`, init)
     var n = 1
 
     return fun(value: Q): Q {
         sum += value
-        sqSum += value.`_`(`*`, value)
+        sqSum += p(value, `*`, value)
         n++
 
-        return stdev(`_`, n, sum, sqSum)
+        return stdev(p, n, sum, sqSum)
     }
 }
 
@@ -47,40 +47,40 @@ fun <Q : Quan<Q>, Q2 : Quan<Q2>> infiniteStdev(
  * @param Q type of input
  * @param Q2 type of input squared
  *
- * @param _ UOM proof (just pass in `::times`)
+ * @param p UOM proof (just pass in `::p`)
  * @param init first value
  * @param falloff number of values to look back when calculating
  */
 fun <Q : Quan<Q>, Q2 : Quan<Q2>> finiteStdev(
-        `_`: Q.(`*`, Q) -> Q2,
+        p: (Q, `*`, Q) -> Q2,
         init: Q,
         falloff: Int
 ): (Q) -> Q {
     val delay = delay<Q>(falloff).also { it(init) }
 
     var sum = init
-    var sqSum = init.`_`(`*`, init)
+    var sqSum = p(init, `*`, init)
     var n = 1
 
     return fun(value: Q): Q {
         sum += value
-        sqSum += value.`_`(`*`, value)
+        sqSum += p(value, `*`, value)
 
         val delayed = delay(value)
         if (delayed == null) n++
         else {
             sum -= delayed
-            sqSum -= delayed.`_`(`*`, delayed)
+            sqSum -= p(delayed, `*`, delayed)
         }
 
-        return stdev(`_`, n, sum, sqSum)
+        return stdev(p, n, sum, sqSum)
     }
 }
 
-private fun <Q : Quan<Q>, Q2 : Quan<Q2>> stdev(`_`: Q.(`*`, Q) -> Q2, n: Int, sum: Q, sqSum: Q2): Q {
+private fun <Q : Quan<Q>, Q2 : Quan<Q2>> stdev(p: (Q, `*`, Q) -> Q2, n: Int, sum: Q, sqSum: Q2): Q {
     val xBar = sum / n
-    val xBarSum2 = xBar.`_`(`*`, sum) * 2 // 2̄xΣxᵢ
-    val nxBarSq = xBar.`_`(`*`, xBar) * n // n̄x²
+    val xBarSum2 = p(xBar, `*`, sum) * 2 // 2̄xΣxᵢ
+    val nxBarSq = p(xBar, `*`, xBar) * n // n̄x²
 
     val sigmaSq = (sqSum - xBarSum2 + nxBarSq) / (n - 1)
     val sigma = sum.new(sqrt(sigmaSq.siValue.absoluteValue))  // `.absoluteValue` because of floating point error

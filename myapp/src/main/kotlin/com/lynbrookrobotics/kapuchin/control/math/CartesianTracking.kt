@@ -2,7 +2,10 @@ package com.lynbrookrobotics.kapuchin.control.math
 
 import com.lynbrookrobotics.kapuchin.control.data.*
 import info.kunalsheth.units.generated.*
-import info.kunalsheth.units.math.*
+import info.kunalsheth.units.math.avg
+import info.kunalsheth.units.math.cos
+import info.kunalsheth.units.math.sin
+import info.kunalsheth.units.math.times
 
 fun theta(sl: Length, sr: Length, track: Length) = (sl - sr) / track * Radian
 fun s(sl: Length, sr: Length) = avg(sl, sr)
@@ -85,6 +88,6 @@ class RotationMatrixTracking(
 
         x = avg(lpx, rpx)
         y = avg(lpy, rpy)
-        bearing += theta(sl, sr, trackLength)
+        bearing += tl + tr
     }
 }
