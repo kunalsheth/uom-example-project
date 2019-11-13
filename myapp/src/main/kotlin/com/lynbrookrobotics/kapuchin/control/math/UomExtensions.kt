@@ -5,6 +5,8 @@ import info.kunalsheth.units.generated.div
 import info.kunalsheth.units.generated.times
 import info.kunalsheth.units.math.max
 import info.kunalsheth.units.math.rangeTo
+import kotlin.math.pow
+import kotlin.math.round
 
 typealias `÷` = div
 typealias `*` = times
@@ -33,6 +35,31 @@ inline infix fun <Q : Quan<Q>> Q.`±`(radius: Q): ClosedRange<Q> {
 fun <Q : Number> `±`(radius: Q) = 0.0 `±` radius
 
 inline fun <Q : Quan<Q>> `±`(radius: Q) = radius.new(0.0) `±` radius
+
+/**
+ * Rounds a number to a fixed number of decimal places for cleaner logging
+ *
+ * @author Kunal
+ *
+ * @receiver number to round
+ * @param decimalPlaces number of digits to keep left of the decimal. Negative numbers round to the right of the decimal.
+ * @return asynchronous logging job
+ */
+infix fun <Q : Quan<Q>> Q.withDecimals(decimalPlaces: Int) = new(siValue withDecimals decimalPlaces)
+
+/**
+ * Rounds a number to a fixed number of decimal places for cleaner logging
+ *
+ * @author Kunal
+ *
+ * @receiver number to round
+ * @param decimalPlaces number of digits to keep left of the decimal. Negative numbers round to the right of the decimal.
+ * @return asynchronous logging job
+ */
+infix fun Number.withDecimals(decimalPlaces: Int) = toDouble().let {
+    val shifter = 10.0.pow(decimalPlaces)
+    round(it * shifter) / shifter
+}
 
 /**
  * Returns the closest, largest range to `current`

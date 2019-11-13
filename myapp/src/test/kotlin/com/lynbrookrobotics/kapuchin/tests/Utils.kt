@@ -1,6 +1,6 @@
 package com.lynbrookrobotics.kapuchin.tests
 
-import com.lynbrookrobotics.kapuchin.logging.*
+import com.lynbrookrobotics.kapuchin.control.math.withDecimals
 import info.kunalsheth.units.generated.Quan
 import info.kunalsheth.units.math.rangeTo
 
