@@ -1,9 +1,12 @@
 package com.lynbrookrobotics.kapuchin.tests.control
 
-import com.lynbrookrobotics.kapuchin.control.conversion.*
-import com.lynbrookrobotics.kapuchin.control.data.*
+import com.lynbrookrobotics.kapuchin.control.conversion.EncoderConversion
+import com.lynbrookrobotics.kapuchin.control.conversion.GearTrain
+import com.lynbrookrobotics.kapuchin.control.data.Gain
 import com.lynbrookrobotics.kapuchin.control.math.withDecimals
-import com.lynbrookrobotics.kapuchin.tests.*
+import com.lynbrookrobotics.kapuchin.tests.`is equal to?`
+import com.lynbrookrobotics.kapuchin.tests.anyDouble
+import com.lynbrookrobotics.kapuchin.tests.anyInt
 import info.kunalsheth.units.generated.*
 import kotlin.test.Test
 
@@ -26,6 +29,7 @@ class ConversionTest {
                     }
                 }
     }
+
 
     @Test
     fun `gears input and output methods are inverses`() {

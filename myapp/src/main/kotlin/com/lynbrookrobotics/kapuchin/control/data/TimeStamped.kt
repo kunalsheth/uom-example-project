@@ -1,7 +1,6 @@
 package com.lynbrookrobotics.kapuchin.control.data
 
-import info.kunalsheth.units.generated.*
-import info.kunalsheth.units.math.*
+import info.kunalsheth.units.generated.Time
 
 /**
  * Represents data that has a time stamp

@@ -1,11 +1,15 @@
 package com.lynbrookrobotics.kapuchin.tests.control.math
 
-import com.lynbrookrobotics.kapuchin.control.data.*
-import com.lynbrookrobotics.kapuchin.control.math.*
-import com.lynbrookrobotics.kapuchin.tests.*
-import com.lynbrookrobotics.kapuchin.tests.control.math.CartesianTrackingTest.Direction.*
+import com.lynbrookrobotics.kapuchin.control.data.Position
+import com.lynbrookrobotics.kapuchin.control.math.RotationMatrixTracking
+import com.lynbrookrobotics.kapuchin.control.math.`±`
+import com.lynbrookrobotics.kapuchin.tests.`is equal to?`
+import com.lynbrookrobotics.kapuchin.tests.`is within?`
+import com.lynbrookrobotics.kapuchin.tests.anyDouble
+import com.lynbrookrobotics.kapuchin.tests.control.math.CartesianTrackingTest.Direction.Left
+import com.lynbrookrobotics.kapuchin.tests.control.math.CartesianTrackingTest.Direction.Right
 import info.kunalsheth.units.generated.*
-import info.kunalsheth.units.math.*
+import info.kunalsheth.units.math.milli
 import kotlin.math.absoluteValue
 import kotlin.test.Test
 
@@ -98,7 +102,7 @@ class CartesianTrackingTest {
 
                 val track = when (direction) {
                     Left -> 1.Foot
-                    Right -> (-1).Foot
+                    Right -> -1.Foot
                 }
 
                 val distl = theta * (r - track) / Radian

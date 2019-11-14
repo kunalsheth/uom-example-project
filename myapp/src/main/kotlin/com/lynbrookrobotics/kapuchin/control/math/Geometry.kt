@@ -1,8 +1,9 @@
 package com.lynbrookrobotics.kapuchin.control.math
 
-import com.lynbrookrobotics.kapuchin.control.data.*
+import com.lynbrookrobotics.kapuchin.control.data.UomVector
+import com.lynbrookrobotics.kapuchin.control.data.minus
 import info.kunalsheth.units.generated.*
-import info.kunalsheth.units.math.*
+import info.kunalsheth.units.math.avg
 import kotlin.math.sqrt
 
 private val t = 1.Turn
@@ -19,7 +20,27 @@ private val ht = 0.5.Turn
  * @return the smallest difference between an element of C(θ₁) and an element of C(θ₂)
  */
 infix fun Angle.`coterminal -`(that: Angle): Angle {
-    val difference = this % t - that % t
+    val difference = (this % t - that % t) % t
+
+    return when {
+        difference > ht -> difference - t
+        difference < -ht -> difference + t
+        else -> difference
+    }
+}
+
+/**
+ * Calculates the difference between two angles
+ *
+ * Let C(θ) be the set of all co-terminal angles to θ.
+ * Given θ₁ | θ₁ ϵ ℝ and θ₂ | θ₂ ϵ ℝ
+ *
+ * @author Sidhant, Kunal
+ *
+ * @return the smallest sum between an element of C(θ₁) and an element of C(θ₂)
+ */
+infix fun Angle.`coterminal +`(that: Angle): Angle {
+    val difference = (this % t + that % t) % t
 
     return when {
         difference > ht -> difference - t

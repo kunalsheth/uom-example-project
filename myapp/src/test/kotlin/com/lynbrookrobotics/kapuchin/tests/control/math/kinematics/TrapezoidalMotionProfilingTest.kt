@@ -1,9 +1,13 @@
 package com.lynbrookrobotics.kapuchin.tests.control.math.kinematics
 
-import com.lynbrookrobotics.kapuchin.control.math.kinematics.*
-import com.lynbrookrobotics.kapuchin.tests.*
-import info.kunalsheth.units.generated.*
-import info.kunalsheth.units.math.*
+import com.lynbrookrobotics.kapuchin.control.math.kinematics.trapezoidalMotionProfile
+import com.lynbrookrobotics.kapuchin.tests.`is equal to?`
+import com.lynbrookrobotics.kapuchin.tests.`is within?`
+import info.kunalsheth.units.generated.Foot
+import info.kunalsheth.units.generated.FootPerSecond
+import info.kunalsheth.units.generated.FootPerSecondSquared
+import info.kunalsheth.units.generated.Inch
+import info.kunalsheth.units.math.rangeTo
 import kotlin.test.Test
 
 class TrapezoidalMotionProfilingTest {

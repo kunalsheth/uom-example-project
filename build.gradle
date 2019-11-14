@@ -8,9 +8,12 @@ buildscript {
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'info.kunalsheth.units:plugin:5.3.2'
+        classpath 'info.kunalsheth.units:plugin:6.0.1'
     }
 }
+
+apply plugin: 'announce'
+apply plugin: 'build-announcements'
 
 allprojects {
     group 'info.kunalsheth.uomexample'

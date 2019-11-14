@@ -1,10 +1,16 @@
 package com.lynbrookrobotics.kapuchin.tests.control.math
 
-import com.lynbrookrobotics.kapuchin.control.math.*
-import com.lynbrookrobotics.kapuchin.control.math.kinematics.*
+import com.lynbrookrobotics.kapuchin.control.math.`coterminal -`
+import com.lynbrookrobotics.kapuchin.control.math.`±`
+import com.lynbrookrobotics.kapuchin.control.math.distance
+import com.lynbrookrobotics.kapuchin.control.math.kinematics.Waypt
+import com.lynbrookrobotics.kapuchin.control.math.kinematics.nSect
+import com.lynbrookrobotics.kapuchin.control.math.kinematics.pathToTrajectory
+import com.lynbrookrobotics.kapuchin.control.math.kinematics.toPath
 import com.lynbrookrobotics.kapuchin.tests.*
 import info.kunalsheth.units.generated.*
-import info.kunalsheth.units.math.*
+import info.kunalsheth.units.math.abs
+import info.kunalsheth.units.math.atan2
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
