@@ -7,8 +7,8 @@ kotlin {
     // select the platform(s) you want to use
     jvm()
     js()
-    linuxX64()
-    macosX64()
+//    linuxX64()
+//    macosX64()
 
     sourceSets {
         // I've never needed to run tests in the :uoms module

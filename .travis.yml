@@ -4,10 +4,10 @@ jdk:
   - openjdk11
 install:
   - ./gradlew clean
-  - travis_wait 90 ./gradlew :uoms:build
+  - travis_wait 50 ./gradlew :uoms:build
 script:
   - ./gradlew check
 cache:
   directories:
     - $HOME/.gradle
-    - $HOME/.konan
+#    - $HOME/.konan
