@@ -1,7 +1,10 @@
 language: kotlin
 sudo: false
+jdk:
+  - openjdk11
 script:
   - ./gradlew clean build check allTests
 cache:
   directories:
     - $HOME/.gradle
+    - $HOME/.konan

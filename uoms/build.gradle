@@ -1,7 +1,7 @@
-apply plugin: 'org.jetbrains.kotlin.multiplatform'
-apply plugin: 'info.kunalsheth.units.gradle'
-
-repositories.mavenCentral()
+plugins {
+    id 'info.kunalsheth.units' version '6.0.1'
+    id 'org.jetbrains.kotlin.multiplatform'
+}
 
 kotlin {
     // select the platform(s) you want to use
@@ -13,10 +13,11 @@ kotlin {
     sourceSets {
         // I've never needed to run tests in the :uoms module
         // but just in case you do, this config will support it
-        
         commonMain {
-            kotlin.srcDir(generateUnitsOfMeasure.generatedSrcDir)
-            dependencies { implementation kotlin('stdlib-common') }
+            dependencies {
+                kotlin.srcDir(generateUnitsOfMeasure.generatedSrcDir)
+                implementation kotlin('stdlib-common')
+            }
         }
         commonTest {
             dependencies {
