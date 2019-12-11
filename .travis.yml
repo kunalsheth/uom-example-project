@@ -4,7 +4,7 @@ jdk:
   - openjdk11
 install:
   - ./gradlew clean
-  - travis_wait 30 ./gradlew :uoms:build
+  - travis_wait 90 ./gradlew :uoms:build
 script:
   - ./gradlew check
 cache:
