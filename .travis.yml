@@ -2,9 +2,11 @@ language: kotlin
 sudo: false
 jdk:
   - openjdk11
-install: travis_wait mvn install
+install:
+  - ./gradlew clean
+  - travis_wait 30 ./gradlew :uoms:build
 script:
-  - ./gradlew clean build check allTests
+  - ./gradlew check
 cache:
   directories:
     - $HOME/.gradle
